@@ -46,7 +46,7 @@ namespace DesktopAssistant
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - charaWindow.Size.Height / 2);
 */
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
-            charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
+            // charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
             charaWindow.ready();
             charaWindow.Show();
 

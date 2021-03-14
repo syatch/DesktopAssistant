@@ -31,7 +31,9 @@ namespace DesktopAssistant
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.loadProgressBar = new System.Windows.Forms.ProgressBar();
+            this.iconPictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -50,11 +52,21 @@ namespace DesktopAssistant
             this.loadProgressBar.Size = new System.Drawing.Size(802, 25);
             this.loadProgressBar.TabIndex = 1;
             // 
+            // iconPictureBox
+            // 
+            this.iconPictureBox.BackColor = System.Drawing.SystemColors.Control;
+            this.iconPictureBox.Location = new System.Drawing.Point(-1, 326);
+            this.iconPictureBox.Name = "iconPictureBox";
+            this.iconPictureBox.Size = new System.Drawing.Size(96, 81);
+            this.iconPictureBox.TabIndex = 2;
+            this.iconPictureBox.TabStop = false;
+            // 
             // loadWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.iconPictureBox);
             this.Controls.Add(this.loadProgressBar);
             this.Controls.Add(this.pictureBox);
             this.Name = "loadWindow";
@@ -62,6 +74,7 @@ namespace DesktopAssistant
             this.Load += new System.EventHandler(this.loadWindow_Load);
             this.Shown += new System.EventHandler(this.loadWindow_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -70,5 +83,6 @@ namespace DesktopAssistant
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.ProgressBar loadProgressBar;
+        private System.Windows.Forms.PictureBox iconPictureBox;
     }
 }

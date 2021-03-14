@@ -13,6 +13,8 @@ namespace DesktopAssistant
     public partial class loadWindow : Form
     {
         private Point mousePoint;
+        private int progressBarLeft;
+        private int iconMoveLength;
 
         public loadWindow()
         {
@@ -21,6 +23,7 @@ namespace DesktopAssistant
             // make not to change size of window
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
+
             // set size and place of loadProgressBar
             loadProgressBar.Width = this.Width + 3;
             loadProgressBar.Top = this.Top + this.Height - this.Height/10;
@@ -28,19 +31,34 @@ namespace DesktopAssistant
             loadProgressBar.ForeColor = Color.Orange;
             loadProgressBar.BackColor = Color.Black;
             loadProgressBar.Style = ProgressBarStyle.Continuous;
+
             // set size of pictureBox
             pictureBox.Size = this.Size;
             // set picture of pictureBox
             pictureBox.ImageLocation = @"./Data/Image/loadPicture.png";
             // set size mode of pictureBox
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // set size of pictureBox
+            iconPictureBox.Height = this.Height / 4;
+            iconPictureBox.Width = this.Width / 4;
+            // set picture of pictureBox
+            iconPictureBox.ImageLocation = @"./Data/Image/iconPicture.png";
+            iconPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            iconPictureBox.BackColor = Color.White;
+
+            progressBarLeft = loadProgressBar.Left;
+            iconMoveLength = (loadProgressBar.Width - iconPictureBox.Width);
         }
 
         // update progress bar
         public void updateLoadProgress(int progress)
         {
             if (loadProgressBar.Value < progress * 10)
-                loadProgressBar.Value++;
+                loadProgressBar.Value += 5;
+
+            if (iconPictureBox.Left < (progressBarLeft + iconMoveLength * progress / 100))
+                iconPictureBox.Left += iconMoveLength / 300;
         }
 
         // when mouse downe
