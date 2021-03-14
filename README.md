@@ -3,7 +3,7 @@ Desktop Assistant for Windows
 
 
 
-
+      Desktop Assistant Copyright (C) 2021 Takashi Ito.
 
       DX Library Copyright (C) 2001-2021 Takumi Yamada.
    
