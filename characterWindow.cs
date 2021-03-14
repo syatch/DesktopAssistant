@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using DxLibDLL;
 
 
-namespace HomeHack
+namespace DesktopAssistant
 {
     public partial class characterWindow : Form
     {

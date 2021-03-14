@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DxLibDLL;
 
-namespace HomeHack
+namespace DesktopAssistant
 {
     static class Program
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace HomeHack
+namespace DesktopAssistant
 {
     partial class loadWindow
     {

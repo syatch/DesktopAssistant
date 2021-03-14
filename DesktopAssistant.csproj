@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2D2CF5FB-534E-498E-8229-0A467175AEC2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>HomeHack</RootNamespace>
-    <AssemblyName>HomeHack</AssemblyName>
+    <RootNamespace>DesktopAssistant</RootNamespace>
+    <AssemblyName>DesktopAssistant</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -84,6 +84,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
