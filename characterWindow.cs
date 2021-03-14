@@ -28,7 +28,7 @@ namespace DesktopAssistant
             MOTION_DANCE
         }
 
-        private double initStage;
+        private int initStage;
         private int modelHandle;
         private int attachIndex;
         private int musicHandle;
@@ -56,9 +56,14 @@ namespace DesktopAssistant
             Text = "キャラクターウィンドウ";//ウインドウの名前を設定
         }
 
-        public double initProgress()
+        public int initProgress()
         {
             return initStage;
+        }
+
+        public void ready()
+        {
+            initStage = 120;
         }
 
         public int initDX()
@@ -66,36 +71,48 @@ namespace DesktopAssistant
             initStage = 0;
             // set screen setting
             DX.SetOutApplicationLogValidFlag(DX.FALSE);//Log.txtを生成しないように設定
+            initStage = 5;
             DX.SetUserWindow(Handle);//DxLibの親ウインドウをこのフォームに設定
+            initStage = 10;
             DX.SetZBufferBitDepth(24);//Zバッファの深度を24bitに変更
+            initStage = 15;
             DX.SetCreateDrawValidGraphZBufferBitDepth(24);//裏画面のZバッファの深度を24bitに変更
+            initStage = 20;
             // draw 3D model smoothly
             DX.SetFullSceneAntiAliasingMode(24, 3);//画面のフルスクリーンアンチエイリアスモードの設定をする(sample, quality)
+            initStage = 25;
             DX.SetDrawScreen(DX.DX_SCREEN_BACK);//描画先を裏画面に設定
 
             // set sound setting
             DX.SetEnableXAudioFlag(DX.TRUE);
+            initStage = 30;
             if (DX.DxLib_Init() < 0)
                 return -1;
+            initStage = 40;
             // set Physics Mode
             DX.MV1SetLoadModelUsePhysicsMode(DX.DX_LOADMODEL_PHYSICS_REALTIME);
+            initStage = 50;
             modelHandle = DX.MV1LoadModel("Data/Model/character.pmx");//3Dモデルの読み込み
             if (modelHandle < 0)
                 return -1;
 
+            initStage = 60;
             DX.MV1SetPhysicsWorldGravity(modelHandle, DX.VGet(0f, -230f, 0f));
             // DX.MV1SetPhysicsWorldGravity(modelHandle, DX.VGet(0f, -230f, 0f));
+            initStage = 70;
             DX.SetCameraNearFar(0.1f, 1000.0f);//奥行0.1～1000をカメラの描画範囲とする
+            initStage = 80;
             DX.SetCameraPositionAndTarget_UpVecY(cameraHomePosition, cameraTargetPosition);//第1引数の位置から第2引数の位置を見る角度にカメラを設置
 
+            initStage = 90;
             this.TopMost = true;
             windowState = WINDOW_STATE.WINDOW_OPENING;
             // motionState = MOTION_STATE.MOTION_WAIT;
             windowState = WINDOW_STATE.WINDOW_NORMAL;
-            initStage = 100;
 
             this.Width = (int)(Screen.PrimaryScreen.Bounds.Width * 0.4);
             this.Height = (int)(Screen.PrimaryScreen.Bounds.Height * 0.7);
+            initStage = 100;
             return 0;
         }
         public void MainLoop()

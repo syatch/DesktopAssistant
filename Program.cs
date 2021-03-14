@@ -15,7 +15,7 @@ namespace DesktopAssistant
         [STAThread]
         static async Task Main()
         {
-            Application.EnableVisualStyles();
+            // Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             characterWindow charaWindow = new characterWindow();
@@ -27,8 +27,11 @@ namespace DesktopAssistant
                 loadWindow.Show();
                 loadWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width * 0.5 - loadWindow.Size.Width / 2);
                 loadWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - loadWindow.Size.Height / 2);
-                while (charaWindow.initProgress() != 100)
+                while (charaWindow.initProgress() != 120)
+                {
+                    loadWindow.updateLoadProgress(charaWindow.initProgress());
                     Application.DoEvents();
+                }
                 loadWindow.Close();
             });
 
@@ -44,6 +47,7 @@ namespace DesktopAssistant
 */
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
             charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
+            charaWindow.ready();
             charaWindow.Show();
 
             //Application.Runではなく自分でループを作成
