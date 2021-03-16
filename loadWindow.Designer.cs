@@ -47,7 +47,7 @@ namespace DesktopAssistant
             // loadProgressBar
             // 
             this.loadProgressBar.Location = new System.Drawing.Point(-1, 413);
-            this.loadProgressBar.Maximum = 1000;
+            this.loadProgressBar.Maximum = 500;
             this.loadProgressBar.Name = "loadProgressBar";
             this.loadProgressBar.Size = new System.Drawing.Size(802, 25);
             this.loadProgressBar.TabIndex = 1;
@@ -61,7 +61,7 @@ namespace DesktopAssistant
             this.iconPictureBox.TabIndex = 2;
             this.iconPictureBox.TabStop = false;
             // 
-            // loadWindow
+            // LoadWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,7 +69,7 @@ namespace DesktopAssistant
             this.Controls.Add(this.iconPictureBox);
             this.Controls.Add(this.loadProgressBar);
             this.Controls.Add(this.pictureBox);
-            this.Name = "loadWindow";
+            this.Name = "LoadWindow";
             this.Text = "ろーど中";
             this.Load += new System.EventHandler(this.LoadWindow_Load);
             this.Shown += new System.EventHandler(this.LoadWindow_Shown);

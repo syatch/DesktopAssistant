@@ -52,13 +52,19 @@ namespace DesktopAssistant
         }
 
         // update progress bar
-        public void UpdateLoadProgress(int progress)
+        public bool UpdateLoadProgress(int progress)
         {
-            if (loadProgressBar.Value < progress * 10)
+            if ((float)loadProgressBar.Value / loadProgressBar.Maximum < progress / 100.0f)
                 loadProgressBar.Value += 5;
 
-            if (iconPictureBox.Left < (progressBarLeft + iconMoveLength * progress / 100))
+            if (iconPictureBox.Left < (progressBarLeft + iconMoveLength * progress / 100.0f))
                 iconPictureBox.Left += iconMoveLength / 300;
+
+            if ((loadProgressBar.Value >= loadProgressBar.Maximum)
+             && (iconPictureBox.Left >= (progressBarLeft + iconMoveLength * progress / 100.0f)))
+                return true;
+            else
+                return false;
         }
 
         // when mouse downe

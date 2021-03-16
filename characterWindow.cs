@@ -94,11 +94,6 @@ namespace DesktopAssistant
             return initStage;
         }
 
-        public void Ready()
-        {
-            initStage = 120;
-        }
-
         public int InitDX()
         {
             initStage = 0;
@@ -123,14 +118,13 @@ namespace DesktopAssistant
             // set Physics Mode
             DX.MV1SetLoadModelUsePhysicsMode(DX.DX_LOADMODEL_PHYSICS_REALTIME);
 
-            initStage = 99;
+            initStage = 90;
             modelHandle = DX.MV1LoadModel("Data/Model/character.pmx");//3Dモデルの読み込み
             if (modelHandle < 0)
                 return -1;
             DX.MV1PhysicsResetState(modelHandle);
             charaState = CHARA_STATE.CHARA_HIDE;
 
-            initStage = 100;
 
             // DX.MV1SetPhysicsWorldGravity(modelHandle, DX.VGet(0f, -50f, 0f));
             DX.MV1SetPhysicsWorldGravity(modelHandle, DX.VGet(0f, -230f, 0f));
@@ -147,6 +141,8 @@ namespace DesktopAssistant
             this.Height = (int)(Screen.PrimaryScreen.Bounds.Height * 0.7);
 
             imageStartTime = DateTime.Now;
+
+            initStage = 100;
             return 0;
         }
         public void MainLoop()
