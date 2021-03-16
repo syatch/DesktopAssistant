@@ -49,15 +49,21 @@ namespace DesktopAssistant
         private int initStage;
         private int modelHandle;
         private int attachIndex;
+        private int poseIndex;
         private int musicHandle;
         private int imageHandle;
         private int maximumHeight = (int)(Screen.PrimaryScreen.Bounds.Height * 1.5);
         private int minimumHeight = (int)(Screen.PrimaryScreen.Bounds.Height * 0.3);
+        public int backGroundRed = 0;
+        public int backGroundGreen = 128;
+        public int backGroundBlue = 0;
         private float playTime;
-        private float imagePlayTime;
         private float totalTime;
+        private float imagePlayTime;
+        private float poseTime;
         private float imageShowTime = 3.0f;
         private float imageShowHeight;
+        private bool pose = false;
         private bool charaDisplaySwitched = false;
         private WINDOW_STATE windowState;
         private CHARA_STATE charaState;
@@ -79,6 +85,8 @@ namespace DesktopAssistant
             this.BackColor = Color.Black;
             // set this window top most
             Text = "キャラクターウィンドウ";//ウインドウの名前を設定
+            FormBorderStyle = FormBorderStyle.None;//フォームの枠を非表示にする
+            TransparencyKey = Color.FromArgb(backGroundRed, backGroundGreen, backGroundBlue);//透過色を設定
         }
 
         public int InitProgress()
@@ -105,6 +113,10 @@ namespace DesktopAssistant
 
             // set sound setting
             DX.SetEnableXAudioFlag(DX.TRUE);
+            ChangeListenerDir();
+
+            DX.SetBackgroundColor(backGroundRed, backGroundGreen, backGroundBlue);
+
             initStage = 80;
             if (DX.DxLib_Init() < 0)
                 return -1;
@@ -125,7 +137,7 @@ namespace DesktopAssistant
             DX.SetCameraNearFar(0.1f, 1000.0f);//奥行0.1～1000をカメラの描画範囲とする
             DX.SetCameraPositionAndTarget_UpVecY(cameraHomePosition, cameraTargetPosition);//第1引数の位置から第2引数の位置を見る角度にカメラを設置
 
-            imageHandle = DX.LoadGraph("Data/Image/loadPicture.png");
+            imageHandle = DX.LoadGraph("Data/Image/loadCharaPicture.jpg");
             
             this.TopMost = true;
             windowState = WINDOW_STATE.WINDOW_STARTING;
@@ -140,12 +152,13 @@ namespace DesktopAssistant
         public void MainLoop()
         {
             DX.ClearDrawScreen();//裏画面を消す
-            // DX.DrawBox(0, 0, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, DX.GetColor(0, 128, 0), DX.TRUE);//背景を設定(透過させる)
-            DX.SetBackgroundColor(0, 128, 0);
-
             nowTime = DateTime.Now;
             playTime = (float)(nowTime - startTime).TotalMilliseconds * 30f / 1000f;
-            DX.MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);//モーションの再生位置を設定
+            if (!pose)
+                DX.MV1SetAttachAnimTime(modelHandle, attachIndex, playTime);//モーションの再生位置を設定
+            else
+                DX.MV1SetAttachAnimTime(modelHandle, poseIndex, poseTime);//ポーズの再生位置を設定
+
             DX.MV1PhysicsCalculation(modelHandle, 1000f / 30f);
 
             if (charaState == CHARA_STATE.CHARA_SHOW)
@@ -165,7 +178,7 @@ namespace DesktopAssistant
                     DX.StopSoundFile();
                 DX.InitSoundMem();
 
-                PlayMotion(MOTION_INDEX.MOTION_CLOSE);
+                PlayMotion(MOTION_INDEX.MOTION_CLOSE, true);
                 windowState = WINDOW_STATE.WINDOW_CLOSING;
                 charaDisplaySwitched = false;
                 double cameraDistance = Math.Sqrt(Math.Pow(cameraHomePosition.x, 2) + Math.Pow(cameraHomePosition.z, 2));
@@ -190,14 +203,15 @@ namespace DesktopAssistant
                 DX.VECTOR camTarget = DX.GetCameraTarget();
                 double cameraDistance = Math.Sqrt(Math.Pow(camPosition.x - camTarget.x, 2) + Math.Pow(camPosition.z - camTarget.z, 2));
                 double angle = Math.Asin(camPosition.x / cameraDistance) / (2.0f * Math.PI) * 360;
-                DX.DrawExtendGraph3D((2.0f * camPosition.x + camTarget.x) / 3.0f, imageShowHeight, (2.0f * camPosition.z + camTarget.z) / 3.0f, 0.01, 0.01, imageHandle, DX.FALSE);
+                DX.DrawExtendGraph3D((2.0f * camPosition.x + camTarget.x) / 3.0f, imageShowHeight, (2.0f * camPosition.z + camTarget.z) / 3.0f, 0.015, 0.015, imageHandle, DX.FALSE);
 
                 if ((!charaDisplaySwitched) && (imagePlayTime >= imageShowTime / 2))
                 {
                     SwitchCharaDisplay();
                     charaDisplaySwitched = true;
+                    playPose(MOTION_INDEX.MOTION_CLOSE, 0.0f);
                 }
-
+                
                 if (imagePlayTime >= imageShowTime)
                 {
                     if (windowState == WINDOW_STATE.WINDOW_STARTING)
@@ -222,7 +236,7 @@ namespace DesktopAssistant
                 if (DX.CheckSoundFile() == 1)
                     DX.StopSoundFile();
                 DX.InitSoundMem();
-                PlayDance(MOTION_INDEX.MOTION_DANCE_0, "Data/Music/do-natu.mp4", 0.18);
+                PlayDance(MOTION_INDEX.MOTION_DANCE_0, "Data/Music/do-natu.mp4", 0.18, true);
             }
 
             if (DX.CheckHitKey(DX.KEY_INPUT_3) != 0)
@@ -254,21 +268,38 @@ namespace DesktopAssistant
                 charaState = CHARA_STATE.CHARA_HIDE;
         }
 
-        private void PlayMotion(MOTION_INDEX motionIndex)
+        private void playPose(MOTION_INDEX motionIndex, float time)
         {
+            poseIndex = DX.MV1DetachAnim(modelHandle, poseIndex);//ポーズの中止
+            attachIndex = DX.MV1DetachAnim(modelHandle, attachIndex);//モーションの中止
+            poseIndex = DX.MV1AttachAnim(modelHandle, (int)motionIndex, -1, DX.FALSE);//モーションの選択
+            DX.MV1PhysicsResetState(modelHandle);
+            playTime = time;
+            pose = true;
+        }
+
+        private void PlayMotion(MOTION_INDEX motionIndex, bool resetPhysics = false)
+        {
+            poseIndex = DX.MV1DetachAnim(modelHandle, poseIndex);//ポーズの中止
             attachIndex = DX.MV1DetachAnim(modelHandle, attachIndex);//モーションの中止
             attachIndex = DX.MV1AttachAnim(modelHandle, (int)motionIndex, -1, DX.FALSE);//モーションの選択
             Console.WriteLine("attachIndex : " + attachIndex);
 
             totalTime = DX.MV1GetAttachAnimTotalTime(modelHandle, attachIndex);//モーションの総再生時間を取得
-            DX.MV1PhysicsResetState(modelHandle);
+            if (resetPhysics)
+            {
+                DX.MV1PhysicsResetState(modelHandle);
+                Console.WriteLine("reset physics");
+
+            }
             startTime = DateTime.Now;
+            pose = false;
             
         }
 
-        public void PlayDance(MOTION_INDEX motionIndex, String FileName, double delayTime = 0.0)
+        public void PlayDance(MOTION_INDEX motionIndex, String FileName, double delayTime = 0.0, bool resetPhysics = false)
         {
-            PlayMotion(motionIndex);
+            PlayMotion(motionIndex, resetPhysics);
 
             DX.SetCreate3DSoundFlag(DX.TRUE);
             musicHandle = DX.LoadSoundMem(FileName);
@@ -379,14 +410,12 @@ namespace DesktopAssistant
             this.MouseMove += new MouseEventHandler(CharacterWindow_MouseMove);
             this.MouseWheel += new MouseEventHandler(CharacterWindow_MouseWheel);
             this.Move += new EventHandler(CharacterWindow_Move);
+            DX.ScreenFlip();
 
         }
         private void CharacterWindow_Shown(object sender, EventArgs e)
         {
-            FormBorderStyle = FormBorderStyle.None;//フォームの枠を非表示にする
-            // BackColor = Color.FromArgb(0, 128, 0);
-            TransparencyKey = Color.FromArgb(0, 128, 0);//透過色を設定
-            ChangeListenerDir();
+            DX.ScreenFlip();
         }
     }
 }
