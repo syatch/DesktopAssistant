@@ -1,7 +1,7 @@
 ﻿
 namespace DesktopAssistant
 {
-    partial class characterWindow
+    partial class CharacterWindow
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -29,7 +29,7 @@ namespace DesktopAssistant
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(characterWindow));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CharacterWindow));
             this.SuspendLayout();
             // 
             // characterWindow
@@ -40,9 +40,9 @@ namespace DesktopAssistant
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "characterWindow";
             this.Text = "キャラクターウィンドウ";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.characterWindow_FormClosed);
-            this.Load += new System.EventHandler(this.characterWindow_Load);
-            this.Shown += new System.EventHandler(this.characterWindow_Shown);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CharacterWindow_FormClosed);
+            this.Load += new System.EventHandler(this.CharacterWindow_Load);
+            this.Shown += new System.EventHandler(this.CharacterWindow_Shown);
             this.ResumeLayout(false);
 
         }

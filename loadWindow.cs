@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace DesktopAssistant
 {
-    public partial class loadWindow : Form
+    public partial class LoadWindow : Form
     {
         private Point mousePoint;
         private int progressBarLeft;
         private int iconMoveLength;
 
-        public loadWindow()
+        public LoadWindow()
         {
             InitializeComponent();
             
@@ -52,7 +52,7 @@ namespace DesktopAssistant
         }
 
         // update progress bar
-        public void updateLoadProgress(int progress)
+        public void UpdateLoadProgress(int progress)
         {
             if (loadProgressBar.Value < progress * 10)
                 loadProgressBar.Value += 5;
@@ -62,7 +62,7 @@ namespace DesktopAssistant
         }
 
         // when mouse downe
-        private void loadWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void LoadWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
             {
@@ -72,7 +72,7 @@ namespace DesktopAssistant
         }
 
         // when mouse moving while down
-        private void loadWindow_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void LoadWindow_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
             {
@@ -81,17 +81,17 @@ namespace DesktopAssistant
                 this.Top += e.Y - mousePoint.Y;
             }
         }
-        private void loadWindow_FormClosed(object sender, FormClosedEventArgs e)
+        private void LoadWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
 
-        private void loadWindow_Load(object sender, EventArgs e)
+        private void LoadWindow_Load(object sender, EventArgs e)
         {
             // add mouse event handler
-            this.MouseDown += new MouseEventHandler(loadWindow_MouseDown);
-            this.MouseMove += new MouseEventHandler(loadWindow_MouseMove);
+            this.MouseDown += new MouseEventHandler(LoadWindow_MouseDown);
+            this.MouseMove += new MouseEventHandler(LoadWindow_MouseMove);
         }
-        private void loadWindow_Shown(object sender, EventArgs e)
+        private void LoadWindow_Shown(object sender, EventArgs e)
         {
             // hide frame
             FormBorderStyle = FormBorderStyle.None;

@@ -1,7 +1,7 @@
 ﻿
 namespace DesktopAssistant
 {
-    partial class loadWindow
+    partial class LoadWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -71,8 +71,8 @@ namespace DesktopAssistant
             this.Controls.Add(this.pictureBox);
             this.Name = "loadWindow";
             this.Text = "ろーど中";
-            this.Load += new System.EventHandler(this.loadWindow_Load);
-            this.Shown += new System.EventHandler(this.loadWindow_Shown);
+            this.Load += new System.EventHandler(this.LoadWindow_Load);
+            this.Shown += new System.EventHandler(this.LoadWindow_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox)).EndInit();
             this.ResumeLayout(false);

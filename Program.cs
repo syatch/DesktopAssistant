@@ -18,24 +18,24 @@ namespace DesktopAssistant
             // Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            characterWindow charaWindow = new characterWindow();
+            CharacterWindow charaWindow = new CharacterWindow();
 
             Task loadingScreenTask = Task.Run(() =>
             {
-                loadWindow loadWindow = new loadWindow();
+                LoadWindow loadWindow = new LoadWindow();
                 //loadCharacter.Owner = loadWindow;
                 loadWindow.Show();
                 loadWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width * 0.5 - loadWindow.Size.Width / 2);
                 loadWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - loadWindow.Size.Height / 2);
-                while (charaWindow.initProgress() != 120)
+                while (charaWindow.InitProgress() != 120)
                 {
-                    loadWindow.updateLoadProgress(charaWindow.initProgress());
+                    loadWindow.UpdateLoadProgress(charaWindow.InitProgress());
                     Application.DoEvents();
                 }
                 loadWindow.Close();
             });
 
-            if (charaWindow.initDX() < 0)
+            if (charaWindow.InitDX() < 0)
                 return;
 
             // charaWindow.StartPosition = FormStartPosition.CenterScreen;
@@ -47,7 +47,7 @@ namespace DesktopAssistant
 */
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
             // charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
-            charaWindow.ready();
+            charaWindow.Ready();
             charaWindow.Show();
 
             //Application.Runではなく自分でループを作成
