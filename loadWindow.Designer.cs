@@ -47,7 +47,7 @@ namespace DesktopAssistant
             // loadProgressBar
             // 
             this.loadProgressBar.Location = new System.Drawing.Point(-1, 413);
-            this.loadProgressBar.Maximum = 500;
+            this.loadProgressBar.Maximum = 300;
             this.loadProgressBar.Name = "loadProgressBar";
             this.loadProgressBar.Size = new System.Drawing.Size(802, 25);
             this.loadProgressBar.TabIndex = 1;

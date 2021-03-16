@@ -55,7 +55,7 @@ namespace DesktopAssistant
         public bool UpdateLoadProgress(int progress)
         {
             if ((float)loadProgressBar.Value / loadProgressBar.Maximum < progress / 100.0f)
-                loadProgressBar.Value += 5;
+                loadProgressBar.Value += 1;
 
             if (iconPictureBox.Left < (progressBarLeft + iconMoveLength * progress / 100.0f))
                 iconPictureBox.Left += iconMoveLength / 300;
