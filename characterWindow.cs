@@ -209,7 +209,8 @@ namespace DesktopAssistant
                 {
                     SwitchCharaDisplay();
                     charaDisplaySwitched = true;
-                    playPose(MOTION_INDEX.MOTION_CLOSE, 0.0f);
+                    if (windowState == WINDOW_STATE.WINDOW_STARTING)
+                        playPose(MOTION_INDEX.MOTION_START, 0.0f);
                 }
                 
                 if (imagePlayTime >= imageShowTime)
@@ -217,7 +218,7 @@ namespace DesktopAssistant
                     if (windowState == WINDOW_STATE.WINDOW_STARTING)
                     {
                         windowState = WINDOW_STATE.WINDOW_NORMAL;
-                        PlayMotion(MOTION_INDEX.MOTION_CLOSE);
+                        PlayMotion(MOTION_INDEX.MOTION_START);
                     }
                     else
                     {
