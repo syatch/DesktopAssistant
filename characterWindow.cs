@@ -413,6 +413,7 @@ namespace DesktopAssistant
         private void CharacterWindow_Shown(object sender, EventArgs e)
         {
             DX.ScreenFlip();
+            ChangeListenerDir();
         }
     }
 }
