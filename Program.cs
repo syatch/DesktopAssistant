@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DxLibDLL;
+using System.Threading;
 
 namespace DesktopAssistant
 {
@@ -15,13 +16,12 @@ namespace DesktopAssistant
         [STAThread]
         static async Task Main()
         {
-            Voiceroid test = new Voiceroid();
-            test.voiceroid();
-            /*
+
             // Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             CharacterWindow charaWindow = new CharacterWindow();
+            Voiceroid voiceroidTalker = new Voiceroid();
 
             Task loadingScreenTask = Task.Run(() =>
             {
@@ -32,7 +32,10 @@ namespace DesktopAssistant
                 loadWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - loadWindow.Size.Height / 2);
 
                 while (!loadWindow.UpdateLoadProgress(charaWindow.InitProgress()))
+                {
                     Application.DoEvents();
+                    Thread.Sleep(10);
+                }
 
                 loadWindow.Close();
             });
@@ -41,16 +44,16 @@ namespace DesktopAssistant
                 return;
 
             loadingScreenTask.Wait();
-
+            voiceroidTalker.PlayAsync(0, "おはよう");
             // charaWindow.StartPosition = FormStartPosition.CenterScreen;
             charaWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width - charaWindow.Size.Width);
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height - charaWindow.Size.Height * 0.9);
-            */
+
 /*
             charaWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width * 0.5 - charaWindow.Size.Width / 2);
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - charaWindow.Size.Height / 2);
 */
-/*
+
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
             // charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
             charaWindow.Show();
@@ -61,7 +64,6 @@ namespace DesktopAssistant
                 charaWindow.MainLoop();
                 Application.DoEvents();
             }
-            */
         }
     }
 }
