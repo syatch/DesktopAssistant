@@ -19,6 +19,7 @@ namespace DesktopAssistant
     public class Voiceroid
     {
         public SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
+        // path for voiceroid application
         private readonly string PATH_VOICEROID = @"C:\Program Files (x86)\AHS\VOICEROID2\VoiceroidEditor";
         private readonly string voiceroidProcessName = "VoiceroidEditor";
         private readonly int CidBase = 2000;

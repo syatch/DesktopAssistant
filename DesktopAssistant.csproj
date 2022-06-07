@@ -148,6 +148,7 @@
     <Compile Include="CharacterWindow.Designer.cs">
       <DependentUpon>CharacterWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="VoiceRecognize.cs" />
     <Compile Include="Voiceroid.cs" />
     <Compile Include="LoadWindow.cs">
       <SubType>Form</SubType>

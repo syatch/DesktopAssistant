@@ -19,7 +19,7 @@ namespace DesktopAssistant
         public LoadWindow()
         {
             InitializeComponent();
-            
+
             // make not to change size of window
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
@@ -70,22 +70,11 @@ namespace DesktopAssistant
         // when mouse downe
         private void LoadWindow_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                // remember mouse point
-                mousePoint = new Point(e.X, e.Y);
-            }
         }
 
         // when mouse moving while down
         private void LoadWindow_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                // move this form
-                this.Left += e.X - mousePoint.X;
-                this.Top += e.Y - mousePoint.Y;
-            }
         }
         private void LoadWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -93,9 +82,6 @@ namespace DesktopAssistant
 
         private void LoadWindow_Load(object sender, EventArgs e)
         {
-            // add mouse event handler
-            this.MouseDown += new MouseEventHandler(LoadWindow_MouseDown);
-            this.MouseMove += new MouseEventHandler(LoadWindow_MouseMove);
         }
         private void LoadWindow_Shown(object sender, EventArgs e)
         {

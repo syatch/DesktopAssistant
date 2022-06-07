@@ -22,7 +22,9 @@ namespace DesktopAssistant
 
             CharacterWindow charaWindow = new CharacterWindow();
             Voiceroid voiceroidTalker = new Voiceroid();
+            VoiceRecognize VoiceRecognizer = new VoiceRecognize();
 
+            // show load window
             Task loadingScreenTask = Task.Run(() =>
             {
                 LoadWindow loadWindow = new LoadWindow();
@@ -43,12 +45,17 @@ namespace DesktopAssistant
             if (charaWindow.InitDX() < 0)
                 return;
 
+            // wait for load task
             loadingScreenTask.Wait();
-            voiceroidTalker.PlayAsync(0, "おはよう");
+
+            voiceroidTalker.PlayAsync(0, "起動しました");
             // charaWindow.StartPosition = FormStartPosition.CenterScreen;
             charaWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width - charaWindow.Size.Width);
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height - charaWindow.Size.Height * 0.9);
 
+            // while (true) {
+
+            // }
 /*
             charaWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width * 0.5 - charaWindow.Size.Width / 2);
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - charaWindow.Size.Height / 2);
@@ -56,6 +63,7 @@ namespace DesktopAssistant
 
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
             // charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
+
             charaWindow.Show();
 
             //Application.Runではなく自分でループを作成
