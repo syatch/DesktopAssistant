@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DxLibDLL;
-using System.Threading;
 
 namespace DesktopAssistant
 {
@@ -19,20 +16,20 @@ namespace DesktopAssistant
 
             // Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            // Create instance
             CharacterWindow charaWindow = new CharacterWindow();
             Voiceroid voiceroidTalker = new Voiceroid();
             VoiceRecognize VoiceRecognizer = new VoiceRecognize();
 
-            // show load window
             Task loadingScreenTask = Task.Run(() =>
             {
+                // Show the load window
                 LoadWindow loadWindow = new LoadWindow();
                 //loadCharacter.Owner = loadWindow;
                 loadWindow.Show();
                 loadWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width * 0.5 - loadWindow.Size.Width / 2);
                 loadWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height * 0.5 - loadWindow.Size.Height / 2);
-
+                // Show progress while the character window init
                 while (!loadWindow.UpdateLoadProgress(charaWindow.InitProgress()))
                 {
                     Application.DoEvents();
@@ -42,13 +39,16 @@ namespace DesktopAssistant
                 loadWindow.Close();
             });
 
+            // Wait for init of the character window
             if (charaWindow.InitDX() < 0)
                 return;
 
             // wait for load task
             loadingScreenTask.Wait();
 
+            // talk
             voiceroidTalker.PlayAsync(0, "起動しました");
+
             // charaWindow.StartPosition = FormStartPosition.CenterScreen;
             charaWindow.Left = (int)(Screen.PrimaryScreen.Bounds.Width - charaWindow.Size.Width);
             charaWindow.Top = (int)(Screen.PrimaryScreen.Bounds.Height - charaWindow.Size.Height * 0.9);
@@ -64,9 +64,10 @@ namespace DesktopAssistant
             // charaWindow.playDance(2, "Data/Music/do-natu.mp4", 0.18);
             // charaWindow.playDance(3, "Data/Music/onegai.mp4", 0.8);
 
+            // Show the character window
             charaWindow.Show();
 
-            //Application.Runではなく自分でループを作成
+            // To draw the character with DX lib, not Application.Run() but while loop used
             while (charaWindow.Created)
             {
                 charaWindow.MainLoop();

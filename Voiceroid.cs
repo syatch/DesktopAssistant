@@ -21,6 +21,7 @@ namespace DesktopAssistant
         public SemaphoreSlim Semaphore = new SemaphoreSlim(1, 1);
         // path for voiceroid application
         private readonly string PATH_VOICEROID = @"C:\Program Files (x86)\AHS\VOICEROID2\VoiceroidEditor";
+        // process name
         private readonly string voiceroidProcessName = "VoiceroidEditor";
         private readonly int CidBase = 2000;
         private Process voiceroidProcess = null;
@@ -34,12 +35,21 @@ namespace DesktopAssistant
         private WPFListView AvatorListView_std = null;
         private WPFListView AvatorListView_usr = null;
 
+
+        /// <summary>
+        /// Create instance
+        /// </summary>
         public Voiceroid()
         {
+            // start voiceroid process
             GetProcess();
+            // get gui elements on gui
             GetElements();
         }
 
+        /// <summary>
+        /// Get Voiceroid process
+        /// </summary>
         private void GetProcess()
         {
             var VrStartInfo = new ProcessStartInfo();
@@ -51,6 +61,9 @@ namespace DesktopAssistant
 
         }
 
+        /// <summary>
+        /// Get GUI elements
+        /// </summary>
         private void GetElements()
         {
             if (voiceroidProcess != null)

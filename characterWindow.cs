@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DxLibDLL;
 
@@ -132,7 +126,7 @@ namespace DesktopAssistant
             DX.SetCameraPositionAndTarget_UpVecY(cameraHomePosition, cameraTargetPosition);//第1引数の位置から第2引数の位置を見る角度にカメラを設置
 
             imageHandle = DX.LoadGraph("Data/Image/loadCharaPicture.jpg");
-            
+
             this.TopMost = true;
             windowState = WINDOW_STATE.WINDOW_STARTING;
             charaDisplaySwitched = false;
@@ -145,6 +139,7 @@ namespace DesktopAssistant
             initStage = 100;
             return 0;
         }
+
         public void MainLoop()
         {
             DX.ClearDrawScreen();//裏画面を消す
@@ -208,7 +203,7 @@ namespace DesktopAssistant
                     if (windowState == WINDOW_STATE.WINDOW_STARTING)
                         playPose(MOTION_INDEX.MOTION_START, 0.0f);
                 }
-                
+
                 if (imagePlayTime >= imageShowTime)
                 {
                     if (windowState == WINDOW_STATE.WINDOW_STARTING)
@@ -291,7 +286,7 @@ namespace DesktopAssistant
             }
             startTime = DateTime.Now;
             pose = false;
-            
+
         }
 
         public void PlayDance(MOTION_INDEX motionIndex, String FileName, double delayTime = 0.0, bool resetPhysics = false)

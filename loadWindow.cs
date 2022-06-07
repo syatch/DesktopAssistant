@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DesktopAssistant
@@ -51,7 +45,11 @@ namespace DesktopAssistant
             iconMoveLength = (loadProgressBar.Width - iconPictureBox.Width);
         }
 
-        // update progress bar
+        /// <summary>
+        /// Update progress bar
+        /// </summary>
+        /// <param name="progress">Progress (0 to 100)</param>
+        /// <returns>If icon and progress bar moved to 100%</returns>
         public bool UpdateLoadProgress(int progress)
         {
             if ((float)loadProgressBar.Value / loadProgressBar.Maximum < progress / 100.0f)
@@ -76,6 +74,7 @@ namespace DesktopAssistant
         private void LoadWindow_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
         }
+
         private void LoadWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
@@ -83,6 +82,12 @@ namespace DesktopAssistant
         private void LoadWindow_Load(object sender, EventArgs e)
         {
         }
+
+        /// <summary>
+        /// Hide frame of the load window when shown
+        /// </summary>
+        /// <param name="object">Object</param>
+        /// <param name="EventArgs">EventArg</param>
         private void LoadWindow_Shown(object sender, EventArgs e)
         {
             // hide frame
